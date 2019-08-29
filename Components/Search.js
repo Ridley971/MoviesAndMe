@@ -40,6 +40,11 @@ class Search extends React.Component {
      }
   }
 
+  _displayDetailForFilm = (idFilm) => {
+      console.log("Display film with id " + idFilm)
+      this.props.navigation.navigate("FilmDetail",{idFilm:idFilm})
+    }
+
   _loadFilms() {
         this.setState({isloading:true})
         if (this.searchedText.length > 0) { // Seulement si le texte recherché n'est pas vide
@@ -73,6 +78,7 @@ _displayLoading(){
 
     }
  }
+
  _searchFilms() {
     this.page = 0
     this.totalPages = 0
@@ -81,11 +87,13 @@ _displayLoading(){
               }, () => {
                 // J'utilise la paramètre length sur mon tableau de films pour vérifier qu'il y a bien 0 film
                 console.log("Page : " + this.page + " / TotalPages : " + this.totalPages + " / Nombre de films : " + this.state.films.length)
-                
+
                 this._loadFilms()
               })
   }
+
   render(){
+    console.log(this.props)
     return(
       // Ici on rend à l'écran les éléments graphiques de notre component custom Search
       <View  style={styles.main_container}>
@@ -101,13 +109,14 @@ _displayLoading(){
           data={this.state.films}
           keyExtractor={(item) => item.id.toString()}
           onEndReachedThreshold = {0.5}
-           onEndReached={() =>{
+          onEndReached={() =>{
               if(this.page < this.totalPage)
               {
                 this._loadFilms()
               }
             }}
-          renderItem={({item}) => <FilmItem film={item}/>}
+
+          renderItem={({item}) => <FilmItem film={item} displayDetailForFilm={this._displayDetailForFilm} />}
         />
         {this._displayLoading()}
       </View>
@@ -117,7 +126,6 @@ _displayLoading(){
 
 const styles =StyleSheet.create({
   main_container:{
-    marginTop:50,
     flex:1
   },
    textinput:{
@@ -139,4 +147,5 @@ const styles =StyleSheet.create({
     justifyContent: 'center'
   }
 })
+
 export default Search

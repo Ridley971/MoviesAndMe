@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19007,
+  "devToolsPort": 19008,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 94073,
+  "packagerPid": 17365,
   "expoServerNgrokUrl": "https://c9-zyj.lerid.moviesandmegit.exp.direct",
   "packagerNgrokUrl": "https://packager.c9-zyj.lerid.moviesandmegit.exp.direct",
-  "ngrokPid": 94082
+  "ngrokPid": 17379
 }
