@@ -3,8 +3,10 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import { getImageFromApi} from "../API/TMDBApi"
+import {connect} from 'react-redux'
 
 class FilmItem extends React.Component {
+
   render() {
     const { film, displayDetailForFilm } = this.props
 
@@ -72,4 +74,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FilmItem
+const  mapStateToProps = (state)=>{return state}
+export default connect(mapStateToProps)(FilmItem)
