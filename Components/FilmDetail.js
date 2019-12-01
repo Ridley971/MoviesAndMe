@@ -66,7 +66,9 @@ _displayFavoriteImage()
             source={{uri: getImageFromApi(film.backdrop_path)}}
           />
           <Text style={styles.title_text}>{film.title}</Text>
-          <TouchableOpacity  styles= {styles.favorite_container } onPress={()=>this._toggleFavorite( )}>
+
+          <TouchableOpacity  style= {styles.favorite_container } onPress={()=>this._toggleFavorite( )}>
+
             {this._displayFavoriteImage()}
           </TouchableOpacity>
           <Text style={styles.description_text}>{film.overview}</Text>
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   favorite_container:{
-    alignItems:'center'
+    alignItems:'center',
   },
   image_favorite:{
     width:40,
