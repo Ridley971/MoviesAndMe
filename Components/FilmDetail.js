@@ -1,22 +1,33 @@
 // Components/FilmDetail.js
 
 import React from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image,Button,TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 class FilmDetail extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       film: undefined,
-      isLoading: true
+      isLoading: false
     }
   }
 
   componentDidMount() {
+    const favoriteFilmIndex = this.props.favoritesFilm.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
+    if (favoriteFilmIndex !== -1) { // Film déjà dans nos favoris, on a déjà son détail
+      // Pas besoin d'appeler l'API ici, on ajoute le détail stocké dans notre state global au state de notre component
+      this.setState({
+        film: this.props.favoritesFilm[favoriteFilmIndex]
+      })
+      return
+    }
+    // Le film n'est pas dans nos favoris, on n'a pas son détail
+    // On appelle l'API pour récupérer son détail
+    this.setState({ isLoading: true })
     getFilmDetailFromApi(this.props.navigation.state.params.idFilm).then(data => {
       this.setState({
         film: data,
@@ -35,27 +46,25 @@ class FilmDetail extends React.Component {
     }
   }
 
- _toggleFavorite(){
-  const action = {type:"TOGGLE_FAVORITE",value:this.state.film}
-  this.props.dispatch(action)
-}
-
-componentDidUpdate()
-{
-  console.log(this.props.favoritesFilm)
-}
-
-_displayFavoriteImage()
-{
-  var sourceImage= require('../Images/coeurVide.png')
-
-  if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !==-1) {
-    // Le film est déjà dans les favoris, on le supprime de la liste
-    sourceImage= require('../Images/coeurPlein.png')
+  _toggleFavorite() {
+    const action = { type: "TOGGLE_FAVORITE", value: this.state.film }
+    this.props.dispatch(action)
   }
 
-  return (  <Image style={styles.image_favorite} source={sourceImage}/>)
-}
+  _displayFavoriteImage() {
+    var sourceImage = require('../Images/coeurVide.png')
+    if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
+      // Film dans nos favoris
+      sourceImage = require('../Images/coeurPlein.png')
+    }
+    return (
+      <Image
+        style={styles.favorite_image}
+        source={sourceImage}
+      />
+    )
+  }
+
   _displayFilm() {
     const { film } = this.state
     if (film != undefined) {
@@ -66,9 +75,9 @@ _displayFavoriteImage()
             source={{uri: getImageFromApi(film.backdrop_path)}}
           />
           <Text style={styles.title_text}>{film.title}</Text>
-
-          <TouchableOpacity  style= {styles.favorite_container } onPress={()=>this._toggleFavorite( )}>
-
+          <TouchableOpacity
+            style={styles.favorite_container}
+            onPress={() => this._toggleFavorite()}>
             {this._displayFavoriteImage()}
           </TouchableOpacity>
           <Text style={styles.description_text}>{film.overview}</Text>
@@ -103,13 +112,6 @@ const styles = StyleSheet.create({
   main_container: {
     flex: 1
   },
-  favorite_container:{
-    alignItems:'center',
-  },
-  image_favorite:{
-    width:40,
-    height:40
-  },
   loading_container: {
     position: 'absolute',
     left: 0,
@@ -138,6 +140,9 @@ const styles = StyleSheet.create({
     color: '#000000',
     textAlign: 'center'
   },
+  favorite_container: {
+    alignItems: 'center',
+  },
   description_text: {
     fontStyle: 'italic',
     color: '#666666',
@@ -148,11 +153,17 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     marginTop: 5,
+  },
+  favorite_image: {
+    width: 40,
+    height: 40
   }
 })
 
-const mapStateToProps=(state)=>
-{
-  return state
+const mapStateToProps = (state) => {
+  return {
+    favoritesFilm: state.favoritesFilm
+  }
 }
+
 export default connect(mapStateToProps)(FilmDetail)
