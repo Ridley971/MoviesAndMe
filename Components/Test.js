@@ -2,14 +2,14 @@
 
 import React from 'react'
 import { StyleSheet, View, Platform } from 'react-native'
+import HelloWorld from './HelloWorld'
 
 class Test extends React.Component {
 
   render() {
     return (
       <View style={styles.main_container}>
-        <View style={styles.subview_container}>
-        </View>
+        <HelloWorld/>
       </View>
     )
   }
