@@ -5,7 +5,7 @@
 // to move faster and fix possible issues quicker
 
 import React, { Component } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, View, I18nManager } from 'react-native';
 
 import { PanGestureHandler, TapGestureHandler, State } from './GestureHandler';
 
@@ -311,8 +311,8 @@ export default class Swipeable extends Component<PropType, StateType> {
 
     return (
       <PanGestureHandler
+        activeOffsetX={[-10, 10]}
         {...this.props}
-        minDeltaX={10}
         onGestureEvent={this._onGestureEvent}
         onHandlerStateChange={this._onHandlerStateChange}>
         <Animated.View
@@ -346,10 +346,10 @@ const styles = StyleSheet.create({
   },
   leftActions: {
     ...StyleSheet.absoluteFillObject,
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL? 'row-reverse': 'row',
   },
   rightActions: {
     ...StyleSheet.absoluteFillObject,
-    flexDirection: 'row-reverse',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
   },
 });

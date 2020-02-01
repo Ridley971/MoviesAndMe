@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 2308,
-  "expoServerNgrokUrl": "https://g9-58w.anonymous.moviesandmegit.exp.direct",
-  "packagerNgrokUrl": "https://packager.g9-58w.anonymous.moviesandmegit.exp.direct",
-  "ngrokPid": 2320
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": "https://pm-hcg.anonymous.moviesandmegit.exp.direct",
+  "packagerNgrokUrl": "https://packager.pm-hcg.anonymous.moviesandmegit.exp.direct",
+  "ngrokPid": 88185
 }
