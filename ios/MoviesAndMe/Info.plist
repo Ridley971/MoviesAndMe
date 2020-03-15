@@ -78,5 +78,13 @@
 	<string>Give Movies And Me periences permission to access your photos</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>Allow Movies And Me to access your reminders</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+  <string>$(PRODUCT_NAME) voudrait accéder à votre galerie photo</string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) voudrait utiliser votre caméra</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) voudrait enregistrer des photos dans votre galerie photo</string>
+	<key>NSMicrophoneUsageDescription</key>
+  <string>$(PRODUCT_NAME) voudrait accéder à votre micro (pour les vidéos)</string>
 </dict>
 </plist>
