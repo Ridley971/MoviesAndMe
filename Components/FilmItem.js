@@ -18,7 +18,7 @@ class FilmItem extends React.Component {
       )
     }
   }
-  
+
 
   render() {
     const { film, displayDetailForFilm } = this.props
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   },
   title_text: {
     fontWeight: 'bold',
+    color:'green',
     fontSize: 20,
     flex: 1,
     flexWrap: 'wrap',

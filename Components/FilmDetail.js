@@ -34,7 +34,7 @@ class FilmDetail extends React.Component {
       isLoading: false
     }
     // Ne pas oublier de binder la fonction _shareFilm sinon, lorsqu'on va l'appeler depuis le headerRight de la navigation, this.state.film sera undefined et fera planter l'application
-   this._shareFilm = this._shareFilm.bind(this)
+   //this._shareFilm = this._shareFilm.bind(this)
   }
 
   // Fonction pour faire passer la fonction _shareFilm et le film aux paramètres de la navigation. Ainsi on aura accès à ces données au moment de définir le headerRight
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    favoritesFilm: state.favoritesFilm
+    favoritesFilm: state.toggleFavorite.favoritesFilm
   }
 }
 

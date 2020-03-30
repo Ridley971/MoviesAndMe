@@ -1,7 +1,7 @@
 // Components/Favorites.js
 
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import FilmList from './FilmList'
 import { connect } from 'react-redux'
 import Avatar from './Avatar'
@@ -30,13 +30,15 @@ const styles = StyleSheet.create({
     flex: 1
   },
   avatar_container: {
+    top:30,
+    marginBottom:30,
     alignItems: 'center'
   }
 })
 
 const mapStateToProps = state => {
   return {
-    favoritesFilm: state.favoritesFilm
+    favoritesFilm: state.toggleFavorite.favoritesFilm
   }
 }
 

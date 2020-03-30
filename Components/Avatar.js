@@ -2,6 +2,8 @@
 
 import React from 'react'
 import { StyleSheet, Image, TouchableOpacity } from 'react-native'
+import ImagePicker from 'react-native-image-picker'
+import { connect } from 'react-redux'
 
 class Avatar extends React.Component {
 
@@ -10,10 +12,27 @@ class Avatar extends React.Component {
     this.state = {
       avatar: require('../Images/ic_tag_faces.png')
     }
+    // this.setState est appelé dans un callback dans showImagePicker, pensez donc bien à binder la fonction _avatarClicked
+    this._avatarClicked = this._avatarClicked.bind(this)
   }
 
   _avatarClicked() {
     // Ici nous appellerons la librairie react-native-image-picker pour récupérer un avatar
+    ImagePicker.showImagePicker({}, (response) => {
+        if (response.didCancel) {
+          console.log('L\'utilisateur a annulé')
+        }
+        else if (response.error) {
+          console.log('Erreur : ', response.error)
+        }
+        else {
+          console.log('Photo : ', response.uri )
+          let requireSource = { uri: response.uri }
+          // On crée une action avec l'image prise et on l'envoie au store Redux
+          const action = { type: "SET_AVATAR", value: requireSource }
+          this.props.dispatch(action)
+        }
+      })
   }
 
   render() {
@@ -21,7 +40,9 @@ class Avatar extends React.Component {
       <TouchableOpacity
         style={styles.touchableOpacity}
         onPress={this._avatarClicked}>
-          <Image style={styles.avatar} source={this.state.avatar} />
+        {/* A présent on peut récupérer notre avatar dans les props.
+        Souvenez-vous Redux mappe notre state global et ses données dans les props de notre component. */}
+          <Image style={styles.avatar} source={this.props.avatar} />
       </TouchableOpacity>
     )
   }
@@ -44,4 +65,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Avatar
+const mapStateToProps = (state) => {
+  return {
+    avatar: state.setAvatar.avatar
+  }
+}
+
+export default connect(mapStateToProps)(Avatar)
